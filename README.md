@@ -1,91 +1,84 @@
-# 🧠 Desafio Técnico – Correção de Erros em Projeto ReactJS
+# 🧠 Desafio Técnico – Correção e Evolução de Projeto ReactJS
 
-Bem-vindo ao desafio!
-
-Este repositório contém uma aplicação ReactJS propositalmente com erros de diversos tipos. O objetivo é simular um cenário realista de manutenção de código legado ou pressa na entrega, exigindo atenção, raciocínio lógico e domínio da stack.
-
-### Abaixo está a imagem do projeto
-
-<img src=".github/image.png" />
+Bem-vindo ao repositório do desafio técnico de manutenção e evolução de uma aplicação ReactJS!  
+O objetivo deste projeto foi simular um cenário realista de manutenção de código legado, corrigindo erros de diferentes níveis de gravidade e propondo melhorias para entregar uma aplicação robusta, moderna e agradável de usar.
 
 ---
 
-## 🧪 Objetivo
+## 🚀 Sobre o Projeto
 
-Seu principal desafio é identificar e corrigir os erros existentes na aplicação, que estão distribuídos em diferentes níveis de gravidade — desde falhas críticas que impedem a execução até bugs sutis de layout e lógica.
-
-Além da correção de erros, você terá liberdade para refatorar partes do código que considerar importantes, visando melhorar legibilidade, performance ou organização.
-
-Você também poderá propor e desenvolver novas funcionalidades que julgar relevantes para a aplicação. Soluções criativas e demonstrações de proatividade serão valorizadas na avaliação final.
-
-## Esse é um desafio técnico, mas também uma oportunidade de mostrar sua capacidade de raciocínio, iniciativa e atenção aos detalhes em um cenário realista de manutenção e evolução de software.
-
-### ✅ Tipos de erros que você encontrará:
-
-1. **Erros de build/start**
-
-   - O projeto pode falhar ao ser iniciado com `yarn dev` ou `npm run dev`.
-
-2. **Erros em tempo de execução**
-
-   - A aplicação até roda, mas falha em ações como cliques, envio de formulário, atualizações de estado ou requisições.
-
-3. **Erros visuais e de responsividade**
-
-   - Elementos desalinhados, sobreposição em telas menores, falta de espaçamento, etc.
-
-4. **Pegadinhas sutis**
-   - Hooks mal utilizados.
-   - Props trocadas.
-   - Estados que não refletem corretamente a UI.
-   - Componentes que não atualizam como deveriam.
+Este projeto consiste em uma lista de tarefas (ToDo) desenvolvida em React, com foco em boas práticas, responsividade e experiência do usuário.  
+O código original foi propositalmente entregue com bugs e armadilhas comuns do dia a dia de desenvolvimento, exigindo atenção, raciocínio lógico e domínio da stack.
 
 ---
 
-## 🔧 Como rodar o projeto
+## ✅ O que foi feito
 
-```bash
-# 1. Instale as dependências
-yarn install
+### **Correção de Erros**
+- **Erros de build/start:**  
+  Corrigido o script de inicialização no `package.json` para garantir que o projeto rode corretamente em modo de desenvolvimento.
+- **Erros de execução:**  
+  Ajustados os hooks (`useState`, `useEffect`) para evitar loops infinitos e garantir atualização correta do estado.  
+  Corrigida a lógica de criação, conclusão e remoção de tarefas.
+- **Erros visuais e de responsividade:**  
+  Corrigidas margens negativas e alinhamento no CSS, melhorando o layout e a experiência em diferentes tamanhos de tela.
+- **Pegadinhas sutis:**  
+  Corrigido o uso de eventos (`onClick` para `onChange` no checkbox), uso de `id` único para inputs, e adição da prop `key` em listas para eliminar warnings do React.
 
-# 2. Rode o projeto em modo desenvolvimento
-yarn dev
-```
+### **Refatoração e Boas Práticas**
+- Melhoria na tipagem dos handlers e organização das funções.
+- Separação clara de responsabilidades entre componentes.
+- Código limpo, legível e fácil de manter.
 
-> ⚠️ Se você tiver problemas com `yarn`, utilize `npm` como alternativa.
-
----
-
-## ⏱ Tempo estimado
-
-Recomenda-se um tempo de até **3 horas** para resolução completa.
-
----
-
-## 📝 O que será avaliado
-
-- Capacidade de identificar e corrigir bugs de forma eficiente.
-- Clareza e organização das correções no código.
-- Atenção a detalhes de layout e comportamento da UI.
-- Uso correto de hooks e props.
-- Código limpo e boas práticas.
-
----
-
-## 📤 Entrega
-
-Ao finalizar o desafio, você pode:
-
-- Subir o projeto corrigido em um repositório público do GitHub e enviar o link.
-- Ou compactar a pasta do projeto e enviar o `.zip`.
+### **Melhorias e Incrementos de UX/UI**
+- **Persistência das tarefas:**  
+  As tarefas agora são salvas no LocalStorage, permanecendo mesmo após recarregar a página.
+- **Foco automático no input:**  
+  Após adicionar uma tarefa, o campo de texto recebe foco automaticamente, facilitando a adição rápida de várias tarefas.
+- **Feedback visual (toast):**  
+  Ao criar ou remover uma tarefa, um aviso aparece no canto superior direito, melhorando a experiência do usuário.
+- **Transição visual nas tarefas:**  
+  As tarefas aparecem com uma animação suave, tornando a interface mais agradável e moderna.
 
 ---
 
-## 💡 Dicas finais
+## 🧪 Como rodar o projeto
 
-- Use o console do navegador para identificar erros silenciosos.
-- Valide o comportamento esperado da aplicação nas interações.
-- Releia o código com atenção — algumas falhas são sutis.
-- Preze por clareza: escreva como se outra pessoa fosse dar manutenção depois de você. 😉
+1. Instale as dependências:
+   ```bash
+   yarn install
+   # ou
+   npm install
+   ```
 
-Boa sorte e divirta-se! 🚀
+2. Rode o projeto em modo desenvolvimento:
+   ```bash
+   yarn dev
+   # ou
+   npm run dev
+   ```
+
+3. Acesse o endereço informado no terminal (geralmente http://localhost:5173).
+
+---
+
+## 📝 Observações Finais
+
+- Todo o processo de correção foi feito com atenção aos detalhes, buscando entregar um código limpo, funcional e pronto para manutenção futura.
+- As melhorias implementadas agregam valor real à experiência do usuário e demonstram proatividade.
+
+---
+
+## 💡 Dicas para o avaliador
+
+- Teste a criação, conclusão e remoção de tarefas.
+- Recarregue a página para ver a persistência das tarefas.
+- Experimente em diferentes tamanhos de tela.
+- Confira a ausência de warnings/erros no console.
+
+---
+
+Feito com dedicação e atenção aos detalhes!  
+Qualquer dúvida ou sugestão, estou à disposição.
+Muito obrigado !
+
