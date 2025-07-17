@@ -69,16 +69,11 @@ O código original foi propositalmente entregue com bugs e armadilhas comuns do 
 
 ---
 
-## 💡 Dicas para o avaliador
+## 💡 Dicas finais
 
-- Teste a criação, conclusão e remoção de tarefas.
-- Recarregue a página para ver a persistência das tarefas.
-- Experimente em diferentes tamanhos de tela.
-- Confira a ausência de warnings/erros no console.
+- Use o console do navegador para identificar erros silenciosos.
+- Valide o comportamento esperado da aplicação nas interações.
+- Releia o código com atenção — algumas falhas são sutis.
+- Preze por clareza: escreva como se outra pessoa fosse dar manutenção depois de você. 😉
 
----
-
-Feito com dedicação e atenção aos detalhes!  
-Qualquer dúvida ou sugestão, estou à disposição.
-Muito obrigado !
-
+Boa sorte e divirta-se! 🚀

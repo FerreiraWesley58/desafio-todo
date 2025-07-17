@@ -1,10 +1,11 @@
 import { PlusCircle, ClipboardText } from "phosphor-react";
-import { useCallback, useMemo, useEffect, useState } from "react";
+import { useCallback, useMemo, useEffect, useState, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./app.module.css";
 import { Header } from "./components/Header";
 import { Task } from "./components/Task";
 
+// Dados iniciais de exemplo para popular a lista na primeira execução
 const data = [
   {
     id: uuidv4(),
@@ -21,22 +22,34 @@ const data = [
 ];
 
 export function App() {
-  const [tasks, setTasks] = useState<any>();
+  // Estado das tarefas, inicializando do LocalStorage se existir
+  const [tasks, setTasks] = useState<any[]>(() => {
+    const saved = localStorage.getItem("tasks");
+    return saved ? JSON.parse(saved) : data;
+  });
+  // Estado do campo de nova tarefa
   const [newTask, setNewTask] = useState("");
-  const [totalCompleted, setTotalCompleted] = useState(0)
+  // Contador de tarefas concluídas
+  const [totalCompleted, setTotalCompleted] = useState(0);
+  // Estado para exibir mensagens rápidas (toast)
+  const [toast, setToast] = useState("");
+  // Referência para o input, para facilitar o foco automático
+  const inputRef = useRef<HTMLInputElement>(null);
 
+  // Sempre que as tarefas mudam, salva no LocalStorage e atualiza o contador de concluídas
   useEffect(() => {
-   setTasks(data) 
-  })
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    setTotalCompleted(tasks.filter((task) => task.isCompleted).length);
+  }, [tasks]);
 
-  const handleNewTaskChange = (event: any) => {
-    event.preventDefault();
+  // Atualiza o campo de nova tarefa conforme o usuário digita
+  const handleNewTaskChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewTask(event.target.value);
   };
 
-  const handleCreateTask = (event: any) => {
+  // Adiciona uma nova tarefa à lista
+  const handleCreateTask = (event: React.FormEvent) => {
     event.preventDefault();
-
     setTasks([
       ...tasks,
       {
@@ -47,34 +60,40 @@ export function App() {
       },
     ]);
     setNewTask("");
+    setToast("Tarefa criada com sucesso!");
+    setTimeout(() => setToast(""), 1500);
+    // Mantém o foco no input para facilitar a adição de várias tarefas
+    inputRef.current?.focus();
   };
 
+  // Alterna o status de conclusão da tarefa
   const completeTask = (id: string) => {
-    const tasksWithoutCompleteOne = tasks.map((task) =>
-      task.id === id ? { ...task, isCompleted: true } : task
+    const updatedTasks = tasks.map((task) =>
+      task.id === id ? { ...task, isCompleted: !task.isCompleted } : task
     );
-
-    setTasks(tasksWithoutCompleteOne);
+    setTasks(updatedTasks);
   };
 
+  // Remove uma tarefa da lista
   const deleteTask = (id: string) => {
-    const taskssWithoutDeleteOne = tasks.filter((task) => task.id !== id);
-
-    setTasks(taskssWithoutDeleteOne);
+    const updatedTasks = tasks.filter((task) => task.id !== id);
+    setTasks(updatedTasks);
+    setToast("Tarefa removida!");
+    setTimeout(() => setToast(""), 1500);
   };
-
-  useEffect(() => {
-    tasks.map((task) => task.isCompleted === true && setTotalCompleted(totalCompleted + 1));
-  }, [totalCompleted])
-
-  
 
   return (
     <>
       <Header />
+      {/* Exibe o toast de feedback quando necessário */}
+      {toast && (
+        <div style={{ position: "fixed", top: 20, right: 20, background: "#333", color: "#fff", padding: "0.75rem 1.5rem", borderRadius: 8, zIndex: 1000, boxShadow: "0 2px 8px #0003" }}>{toast}</div>
+      )}
       <main className={styles.wrapper}>
+        {/* Formulário para adicionar nova tarefa */}
         <form className={styles.newText} onSubmit={handleCreateTask}>
           <input
+            ref={inputRef}
             type="text"
             placeholder="Adicione uma tarefa"
             value={newTask}
@@ -92,7 +111,6 @@ export function App() {
               <strong>Tarefas criadas</strong>
               <span>{tasks.length}</span>
             </div>
-
             <div>
               <strong>Concluídas</strong>
               <span>
@@ -101,9 +119,11 @@ export function App() {
             </div>
           </div>
           <div className={styles.contentBox}>
+            {/* Renderiza as tarefas ou uma mensagem caso não haja nenhuma */}
             {tasks.length > 0 ? (
               tasks.map((task) => (
                 <Task
+                  key={task.id}
                   id={task.id}
                   checked={task.isCompleted}
                   title={task.title}
